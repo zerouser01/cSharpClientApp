@@ -1,0 +1,104 @@
+﻿<Window x:Class="app4client3.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:app4client3"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="600" Width="1600" MinWidth="800" MinHeight="400">
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="2*" />
+            <ColumnDefinition Width="auto" />
+            <ColumnDefinition Width="1*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="50"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0" Grid.Column="0">
+            <DataGrid IsReadOnly="True" AutoGenerateColumns="False" x:Name="ClientsGrid" MouseDoubleClick="ClientsGrid_MouseDoubleClick">
+
+                <DataGrid.Columns>
+                    <DataGridTextColumn Binding="{Binding ID}" Header="ID" Width="70"/>
+                    <DataGridTextColumn Binding="{Binding Name}" Header="Название" Width="*"/>
+                    <DataGridTextColumn Binding="{Binding FieldOfActivity}" Header="Поле деятельности" Width="150" CanUserReorder="True"/>
+                    <DataGridTextColumn Binding="{Binding INN}" Header="ИНН" Width="150"/>
+                    <DataGridTextColumn Binding="{Binding NumberOfTickets}" Header="Число заявок" Width="auto"/>
+                    <DataGridTextColumn Binding="{Binding DateLastTicket}" Header="Дата последней" Width="auto"/>
+                    <DataGridTemplateColumn>
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Button x:Name="delClient" Content="DEL" Click="delClient_Click"></Button>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTemplateColumn>
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Button x:Name="btnTickets" Content="Редактировать" Click="btnEdit"></Button>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTemplateColumn>
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Button Width="50" x:Name="btnEdit" Content="->" Click="btnTickets"></Button>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+
+                </DataGrid.Columns>
+            </DataGrid>
+
+        </Grid>
+        <Grid Grid.Row="1" Grid.Column="0">
+            <Button Width="200" x:Name="btnAddClient" Content="Добавить клиента" Click="btnAddClient_Click" />
+            <Button Width="150" x:Name="RefreshClient" Content="Обновить" HorizontalAlignment="Left" Click="RefreshClient_Click"/>
+        </Grid>
+
+        <GridSplitter Grid.Column="1" ShowsPreview="False" Width="3"
+        HorizontalAlignment="Center" VerticalAlignment="Stretch" />
+        <Grid Grid.Column="2" Grid.Row="0">
+            <DataGrid AutoGenerateColumns="False" x:Name="TicketsGrid" CanUserReorderColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" CanUserResizeRows="False" EnableRowVirtualization="False" >
+                <DataGrid.Columns>
+                    <DataGridTextColumn Binding="{Binding ClientID}" Header="CID" Width="auto" />
+                    <DataGridTextColumn Binding="{Binding DateOfTickets}" Header="Дата" Width="65"/>
+                    <DataGridTextColumn Binding="{Binding Naimenovanie}" Header="Наименование" Width="*" SortDirection="Ascending"/>
+                    <DataGridTextColumn Binding="{Binding Deskription}" Header="Описание" Width="*"/>
+                    <DataGridTextColumn Binding="{Binding Status}" Header="Статус" Width="auto"/>
+                    <DataGridTemplateColumn>
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Button Width="50" x:Name="btnEditTicket" Content="EDIT" Click="btnEditTicket_Click"></Button>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTemplateColumn>
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Button Width="50" x:Name="btnSaveTicket" Content="Save" Click="btnSaveTicket_Click"></Button>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTemplateColumn>
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Button Width="50" x:Name="btnDelTicket" Content="DELETE" Click="btnDelTicket_Click"></Button>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                </DataGrid.Columns>
+            </DataGrid>
+        </Grid>
+        <Grid Grid.Row="1" Grid.Column="2">
+            <Button  x:Name="btnAddTicket" Content="Добавить заявку" HorizontalAlignment="Left" Height="auto" Width="auto" Click="btnAddTicket_Click" IsEnabled="False"></Button>
+            <Button x:Name="btnSave" Content="Сохранить изменения" HorizontalAlignment="Center" Click="btnSave_Click"/>
+            
+        </Grid>
+
+
+    </Grid>
+
+</Window>

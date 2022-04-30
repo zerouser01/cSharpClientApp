@@ -1,0 +1,53 @@
+﻿<Window x:Class="app4client3.EditTicket"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:app4client3"
+        mc:Ignorable="d"
+        Title="AddTicket" Height="400" Width="800">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="60"/>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="60"/>
+            <RowDefinition Height="60"/>
+            <RowDefinition Height="60"/>
+            <RowDefinition Height="53*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="71*"/>
+            <ColumnDefinition Width="329*"/>
+        </Grid.ColumnDefinitions>
+        <Grid Grid.Row="0" Grid.Column="1">
+            <Label x:Name="headerLabel" Content="Редактирование заявки" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="24"></Label>
+        </Grid>
+        <Grid Grid.Row="1" Grid.Column="0">
+            <Label Content="Клиент" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="16"></Label>
+        </Grid>
+        <Grid Grid.Row="1" Grid.Column="1">
+            <Label x:Name="labelClient" FontSize="16" HorizontalAlignment="Center" VerticalAlignment="Center"></Label>
+        </Grid>
+        <Grid Grid.Row="2" Grid.Column="0">
+            <Label Content="Наименование" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="16"></Label>
+        </Grid>
+        <Grid Grid.Row="3" Grid.Column="0">
+            <Label Content="Описание работ" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="16"></Label>
+        </Grid>
+        <Grid Grid.Row="4" Grid.Column="0">
+            <Label Content="Статус" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="16"></Label>
+        </Grid>
+        <Grid Grid.Row="2" Grid.Column="1">
+            <TextBox x:Name="NaimenovanieTextBox" Width="auto" Height="20"></TextBox>
+        </Grid>
+        <Grid Grid.Row="3" Grid.Column="1">
+            <TextBox x:Name="DeskriptTextBox" Width="auto" Height="20"></TextBox>
+        </Grid>
+        <Grid Grid.Row="4" Grid.Column="1">
+            <ComboBox x:Name="comboStatus" Height="30"></ComboBox>
+        </Grid>
+        <Grid Grid.Row="5" Grid.Column="1">
+            <Button x:Name="btnEdit" Content="Сохранить изменения" Height="50" Width="200" Click="btnEdit_Click"/>
+        </Grid>
+    </Grid>
+</Window>
