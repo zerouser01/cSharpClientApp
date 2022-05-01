@@ -37,14 +37,14 @@
                     <DataGridTemplateColumn>
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
-                                <Button x:Name="btnTickets" Content="Редактировать" Click="btnEdit"></Button>
+                                <Button x:Name="btnTickets" Content="Редактировать" Click="BtnEdit"></Button>
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
                     <DataGridTemplateColumn>
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
-                                <Button Width="50" x:Name="btnEdit" Content="->" Click="btnTickets"></Button>
+                                <Button Width="50" x:Name="btnEdit" Content="->" Click="BtnTickets"></Button>
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
