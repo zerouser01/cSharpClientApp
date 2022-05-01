@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 
 namespace app4client3
@@ -12,7 +9,7 @@ namespace app4client3
     /// </summary>
     
     
-    public partial class AddClient : Window
+    public partial class AddClient
     {
         public AddClient()
         {
@@ -21,34 +18,31 @@ namespace app4client3
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            StringBuilder sb = new StringBuilder();
+            var sb = new StringBuilder();
             if (string.IsNullOrEmpty(NameTextBox.Text))
-                sb.AppendLine("Введите имя клиента");
+                sb.AppendLine(Constants.ENTER_CLIENT_NAME);
             if (string.IsNullOrEmpty(FieldofActivityTextBox.Text))
-                sb.AppendLine("Введите Поле деятельности");
+                sb.AppendLine(Constants.ENTER_FIELDOFACTIVITY);
             if (string.IsNullOrEmpty(InnTextBox.Text))
-                sb.AppendLine("Введите ИНН");
+                sb.AppendLine(Constants.ENTER_INN);
 
             if (sb.Length > 0)
             {//если пользователь неправильно ввел данные
                 MessageBox.Show(sb.ToString());
-                return;
             }
             else
             {
-                Clients _client = new Clients();
-                _client.Name = NameTextBox.Text;
-                _client.FieldOfActivity = FieldofActivityTextBox.Text;
-                _client.INN = InnTextBox.Text;
-                _client.DateLastTicket = DateTime.Now;
-                OrganizationEntities.GetContext().Clients.Add(_client);
-                if(OrganizationEntities.GetContext().SaveChanges() == 1)
+                var client = new Clients
                 {
-                    MessageBox.Show("Клиент успешно добавлен!");
-                    
-                    Close();
-                }
-
+                    Name = NameTextBox.Text,
+                    FieldOfActivity = FieldofActivityTextBox.Text,
+                    INN = InnTextBox.Text,
+                    DateLastTicket = DateTime.Now
+                };
+                ApplicationContext.GetContext().Clients.Add(client);
+                ApplicationContext.GetContext().SaveChanges();
+                MessageBox.Show(Constants.ADD_CLIENT);
+                Close();
             }
 
         }

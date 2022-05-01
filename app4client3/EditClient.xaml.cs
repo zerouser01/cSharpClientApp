@@ -1,25 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
+
 
 namespace app4client3
 {
     /// <summary>
     /// Логика взаимодействия для EditClient.xaml
     /// </summary>
-    public partial class EditClient : Window
+    public partial class EditClient
     {
         Clients instance;
+
         public EditClient(Clients client)
         {
             InitializeComponent();
@@ -31,33 +23,30 @@ namespace app4client3
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            StringBuilder sb = new StringBuilder();
+            var sb = new StringBuilder();
             if (string.IsNullOrEmpty(NameTextBox.Text))
-                sb.AppendLine("Введите имя клиента");
+                sb.AppendLine(Constants.ENTER_NAIMENOVANIE);
             if (string.IsNullOrEmpty(FieldofActivityTextBox.Text))
-                sb.AppendLine("Введите Поле деятельности");
+                sb.AppendLine(Constants.ENTER_DESKRIPTION);
             if (string.IsNullOrEmpty(InnTextBox.Text))
-                sb.AppendLine("Введите ИНН");
+                sb.AppendLine(Constants.ENTER_INN);
 
             if (sb.Length > 0)
             {//если пользователь неправильно ввел данные
                 MessageBox.Show(sb.ToString());
                 return;
             }
-            else
+
+            var currentClient = ApplicationContext.GetContext().Clients.FirstOrDefault(c => c.ID == instance.ID);
+            if (currentClient != null)
             {
-                var custom = OrganizationEntities.GetContext().Clients.Where(c => c.ID == instance.ID).FirstOrDefault();
-                custom.Name = NameTextBox.Text;
-                custom.FieldOfActivity = FieldofActivityTextBox.Text;
-                custom.INN = InnTextBox.Text;
-                int i = OrganizationEntities.GetContext().SaveChanges();
-                if(i > 0)
-                {
-                    MessageBox.Show("Данные успешно обновлены! " + i);
-                    Close();
-                }
-                
+                currentClient.Name = NameTextBox.Text;
+                currentClient.FieldOfActivity = FieldofActivityTextBox.Text;
+                currentClient.INN = InnTextBox.Text;
             }
+            ApplicationContext.GetContext().SaveChanges();
+            MessageBox.Show(Constants.SUCCESS);
+            Close();
         }
     }
 }

@@ -15,10 +15,10 @@
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="*"></RowDefinition>
-            <RowDefinition Height="200"></RowDefinition>
+            <RowDefinition Height="50"></RowDefinition>
         </Grid.RowDefinitions>
         <Grid Grid.Row="0" Grid.Column="0">
-            <DataGrid IsReadOnly="True" AutoGenerateColumns="False" x:Name="ClientsGrid" MouseDoubleClick="ClientsGrid_MouseDoubleClick" SelectionUnit="CellOrRowHeader" SelectedCellsChanged="ClientsGrid_SelectedCellsChanged" >
+            <DataGrid IsReadOnly="True" AutoGenerateColumns="False" x:Name="ClientsGrid" SelectionUnit="CellOrRowHeader" SelectedCellsChanged="ClientsGrid_SelectedCellsChanged" >
             
                 <DataGrid.Columns>
                     <DataGridTextColumn Binding="{Binding ID}" Header="ID" Width="70"/>
@@ -30,7 +30,7 @@
                     <DataGridTemplateColumn>
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
-                                <Button x:Name="delClient" Content="DEL" Click="delClient_Click"></Button>
+                                <Button x:Name="delClient" Content="Удалить" Click="DelClient_Click"></Button>
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
@@ -54,9 +54,9 @@
 
         </Grid>
         <Grid Grid.Row="1" Grid.Column="0">
-            <Button Width="200" Height="50" x:Name="btnAddClient" Content="Добавить клиента" Click="btnAddClient_Click" />
+            <Button Width="200" Height="50" x:Name="BtnAddClient" Content="Добавить клиента" Click="BtnAddClient_Click" />
             <Button Width="150" Height="50" x:Name="RefreshClient" Content="Обновить" HorizontalAlignment="Left" Click="RefreshClient_Click"/>
-            <Label x:Name="labelAbout" Content="" HorizontalAlignment="Right" VerticalAlignment="Center"/>
+            <Label x:Name="LabelAbout" Content="" HorizontalAlignment="Right" VerticalAlignment="Center"/>
             
         </Grid>
 
@@ -73,14 +73,14 @@
                     <DataGridTemplateColumn>
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
-                                <Button Width="50" x:Name="btnEditTicket" Content="EDIT" Click="btnEditTicket_Click"></Button>
+                                <Button Width="50" x:Name="btnEditTicket" Content="EDIT" Click="BtnEditTicket_Click"></Button>
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
                     <DataGridTemplateColumn>
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
-                                <Button Width="50" x:Name="btnDelTicket" Content="DELETE" Click="btnDelTicket_Click"></Button>
+                                <Button Width="50" x:Name="btnDelTicket" Content="DELETE" Click="BtnDelTicket_Click"></Button>
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
@@ -88,8 +88,8 @@
             </DataGrid>
         </Grid>
         <Grid Grid.Row="1" Grid.Column="2">
-            <Button Height="50" Width="200"  x:Name="btnAddTicket" Content="Добавить заявку" HorizontalAlignment="Left" Click="btnAddTicket_Click" IsEnabled="False"></Button>
-            <Button Height="50" Width="200" HorizontalAlignment="Right" x:Name="btnSave" Content="Сохранить изменения" Click="btnSave_Click"/>
+            <Button Height="50" Width="200"  x:Name="BtnAddTicket" Content="Добавить заявку" HorizontalAlignment="Left" Click="BtnAddTicket_Click" IsEnabled="False"></Button>
+            <Button Height="50" Width="200" HorizontalAlignment="Right" x:Name="BtnSave" Content="Сохранить изменения" Click="BtnSave_Click"/>
             
         </Grid>
 

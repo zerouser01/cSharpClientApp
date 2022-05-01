@@ -1,45 +1,27 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace app4client3
 {
     /// <summary>
     /// Логика взаимодействия для MainWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class MainWindow
     {
         /* Здесь создается экземпляр класса Clients для того чтобы во время получения списка тикетов
          * присвоить ему значение того клиента, тикеты которого необходимо отобразить в TicketsGrid
          */
-        private Clients _instance4Newform;
+        private Clients _instance4NewForm;
         public MainWindow()
         {
             InitializeComponent();
-            ClientsGrid.ItemsSource = OrganizationEntities.GetContext().Clients.ToList();
-            //aga
+            ClientsGrid.ItemsSource = ApplicationContext.GetContext().Clients.ToList();
         }
 
-
-        private void ClientsGrid_MouseDoubleClick(object sender, MouseButtonEventArgs e)
-        {
-            //не получилось брать тикеты по двойному клику, не знаю как представить объект сендер
-            //Clients obj = (sender as DataGridCell).DataContext as Clients;
-
-            //MessageBox.Show(ClientsGrid.SelectedIndex.ToString());
-            //MessageBox.Show(obj.INN.ToString());
-        }
 
         private void BtnEdit(object sender, RoutedEventArgs e)
         {
@@ -49,23 +31,19 @@ namespace app4client3
             var window = new EditClient(obj);
             window.Show();
         }
-
-        private List<Tickets> RefreshTickets(int clientID)
-        {
-            /* функция обновления списка тикетов. принимает в себя значение clientID
-             * создает список типа Tickets, получает все тикеты из базы и проверяет каждый на принадлежность к clientID
-             * возвращает список из подходящих тикетов. 
-             */
-            List<Tickets> arr = new List<Tickets>();
-            foreach (Tickets t in OrganizationEntities.GetContext().Tickets.ToList())
-            {
-                if (t.ClientID == clientID)
-                {
-                    arr.Add(t);
-                }
-            }
-            return arr;
-        }
+        
+        /* функция обновления списка тикетов. принимает в себя значение clientID
+         * создает список типа Tickets, получает все тикеты из базы и проверяет каждый на принадлежность к clientID
+         * возвращает список из подходящих тикетов. 
+         */
+        private List<Tickets> RefreshTickets(int clientId) => 
+            ApplicationContext
+                .GetContext()
+                .Tickets
+                .Where(item => item.ClientID == clientId)
+                .ToList();
+            
+        
         
         private void BtnTickets(object sender, RoutedEventArgs e)
         {
@@ -75,20 +53,20 @@ namespace app4client3
              * заполняем TicketsGrid полученным cписком
              */
             var obj = (sender as Button)?.DataContext as Clients;
-            _instance4Newform = obj;
+            _instance4NewForm = obj;
             if (obj == null) return;
             var arr = RefreshTickets(obj.ID);
 
             if (arr.Count > 0)
             {
                 TicketsGrid.ItemsSource = arr;
-                btnAddTicket.IsEnabled = true;
+                BtnAddTicket.IsEnabled = true;
             }
             else
             {
                 MessageBox.Show("У выбранного вами клиента нет заявок");
                 TicketsGrid.ItemsSource = null;
-                btnAddTicket.IsEnabled = true;
+                BtnAddTicket.IsEnabled = true;
             }
 
             if (obj.NumberOfTickets == arr.Count) return;
@@ -101,27 +79,27 @@ namespace app4client3
 
             MessageBox.Show(message.ToString());
             obj.NumberOfTickets = arr.Count;
-            OrganizationEntities.GetContext().SaveChanges();
-            ClientsGrid.ItemsSource = OrganizationEntities.GetContext().Clients.ToList();
+            ApplicationContext.GetContext().SaveChanges();
+            ClientsGrid.ItemsSource = ApplicationContext.GetContext().Clients.ToList();
         }
 
 
 
-        private void btnAddTicket_Click(object sender, RoutedEventArgs e)
+        private void BtnAddTicket_Click(object sender, RoutedEventArgs e)
         {
 
-            var a = new AddTicket(_instance4Newform);
+            var a = new AddTicket(_instance4NewForm);
             a.Show();
         }
 
-        private void btnSave_Click(object sender, RoutedEventArgs e)
+        private void BtnSave_Click(object sender, RoutedEventArgs e)
         {
             /* Действие при нажатии на кнопку "сохранить изменения"
              */
-            OrganizationEntities.GetContext().SaveChanges();
+            ApplicationContext.GetContext().SaveChanges();
         }
 
-        private void btnDelTicket_Click(object sender, RoutedEventArgs e)
+        private void BtnDelTicket_Click(object sender, RoutedEventArgs e)
         {
             /* Действие при нажатии на кнопку "DELETE" (Tickets) 
              * Обрабатываем сендер как объект класса Tickets, сохраняем значение СlientID
@@ -130,28 +108,16 @@ namespace app4client3
              * С помощью функции refreshTickets передаем сохраненное значение ClientID, получаем новый список тикетов
              * загружаем список тикетов в TicketsGrid
              */
-            var dataContext = (sender as Button)?.DataContext as Tickets;
-            if (dataContext != null)
-            {
-                var id = dataContext.ClientID;
-            }
 
-            if (dataContext != null && dataContext.ClientID > 0)
-            {
-                OrganizationEntities.GetContext().Tickets.Remove(dataContext);
-                OrganizationEntities.GetContext().SaveChanges();
-                var arr = RefreshTickets(dataContext.ClientID);
-                TicketsGrid.ItemsSource = arr;
-            }
-            else return;
+            if (!((sender as Button)?.DataContext is Tickets dataContext) || dataContext.ClientID <= 0) 
+                return;
+            
+            ApplicationContext.GetContext().Tickets.Remove(dataContext);
+            ApplicationContext.GetContext().SaveChanges();
+            TicketsGrid.ItemsSource = RefreshTickets(dataContext.ClientID);
         }
 
-        private void Button_SourceUpdated(object sender, DataTransferEventArgs e)
-        {
-
-        }
-
-        private void btnAddClient_Click(object sender, RoutedEventArgs e)
+        private void BtnAddClient_Click(object sender, RoutedEventArgs e)
         {
             /*Событие для кнопки "добавить клиента"
              */
@@ -162,37 +128,32 @@ namespace app4client3
         private void RefreshClient_Click(object sender, RoutedEventArgs e)
         {
             /*Событие для кнопки "обновить" (clientsGrid)*/
-            ClientsGrid.ItemsSource = OrganizationEntities.GetContext().Clients.ToList();
+            ClientsGrid.ItemsSource = ApplicationContext.GetContext().Clients.ToList();
         }
 
 
-        private void delClient_Click(object sender, RoutedEventArgs e)
+        private void DelClient_Click(object sender, RoutedEventArgs e)
         {
             /* Событие для кнопки "удалить клиента"
              */
-            if ((sender as Button)?.DataContext is Clients obj) OrganizationEntities.GetContext().Clients.Remove(obj);
-            OrganizationEntities.GetContext().SaveChanges();
-            ClientsGrid.ItemsSource = OrganizationEntities.GetContext().Clients.ToList();
+            if ((sender as Button)?.DataContext is Clients obj) ApplicationContext.GetContext().Clients.Remove(obj);
+            ApplicationContext.GetContext().SaveChanges();
+            ClientsGrid.ItemsSource = ApplicationContext.GetContext().Clients.ToList();
         }
 
-        private void btnSaveTicket_Click(object sender, RoutedEventArgs e)
-        {
-            
-        }
-
-        private void btnEditTicket_Click(object sender, RoutedEventArgs e)
+        private void BtnEditTicket_Click(object sender, RoutedEventArgs e)
         {
             /* Событие для кнопки "ЕDIT" - редактирование тикета, вызов соответствующего окна
              */
             if (!((sender as Button)?.DataContext is Tickets tickets)) return;
-            var window = new EditTicket(_instance4Newform, tickets);
+            var window = new EditTicket(_instance4NewForm, tickets);
             window.Show();
         }
         
 
         private void ClientsGrid_SelectedCellsChanged(object sender, SelectedCellsChangedEventArgs e)
         {
-            if ((sender as DataGrid)?.CurrentCell.Item is Clients clients) labelAbout.Content = clients.About;
+            if ((sender as DataGrid)?.CurrentCell.Item is Clients clients) LabelAbout.Content = clients.About;
         }
     }
 }
