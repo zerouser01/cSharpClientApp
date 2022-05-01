@@ -13,16 +13,16 @@ namespace app4client3
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class OrganizationEntities : DbContext
+    public partial class ApplicationContext : DbContext
     {
-        private static OrganizationEntities _instance;
-        public static OrganizationEntities GetContext()
+        private static ApplicationContext _instance;
+        public static ApplicationContext GetContext()
         {
             if (_instance == null)
-                _instance = new OrganizationEntities();
+                _instance = new ApplicationContext();
             return _instance;
         }
-        public OrganizationEntities()
+        public ApplicationContext()
             : base("name=OrganizationEntities")
         {
         }

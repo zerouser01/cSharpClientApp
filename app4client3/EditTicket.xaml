@@ -47,7 +47,7 @@
             <ComboBox x:Name="comboStatus" Height="30"></ComboBox>
         </Grid>
         <Grid Grid.Row="5" Grid.Column="1">
-            <Button x:Name="btnEdit" Content="Сохранить изменения" Height="50" Width="200" Click="btnEdit_Click"/>
+            <Button x:Name="btnEdit" Content="Сохранить изменения" Height="50" Width="200" Click="BtnEdit_Click"/>
         </Grid>
     </Grid>
 </Window>

@@ -198,6 +198,7 @@
     <Compile Include="Clients.cs">
       <DependentUpon>BaseModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Constants.cs" />
     <Compile Include="EditClient.xaml.cs">
       <DependentUpon>EditClient.xaml</DependentUpon>
     </Compile>
