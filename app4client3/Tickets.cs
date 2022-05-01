@@ -11,8 +11,7 @@ namespace app4client3
 {
     using System;
     using System.Collections.Generic;
-    using System.Windows.Controls;
-
+    
     public partial class Tickets
     {
         public int ID { get; set; }
@@ -23,10 +22,5 @@ namespace app4client3
         public int ClientID { get; set; }
     
         public virtual Clients Clients { get; set; }
-
-        public static implicit operator Tickets(DataGridRow v)
-        {
-            throw new NotImplementedException();
-        }
     }
 }

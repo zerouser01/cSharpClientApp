@@ -15,6 +15,7 @@
           <Property Name="INN" Type="nvarchar" MaxLength="100" />
           <Property Name="NumberOfTickets" Type="int" />
           <Property Name="DateLastTicket" Type="datetime" Nullable="false" />
+          <Property Name="About" Type="nvarchar" MaxLength="100" />
         </EntityType>
         <EntityType Name="Status">
           <Key>
@@ -80,6 +81,7 @@
           <Property Name="NumberOfTickets" Type="Int32" />
           <Property Name="DateLastTicket" Type="DateTime" Nullable="false" Precision="3" />
           <NavigationProperty Name="Tickets" Relationship="Self.FK_Tickets_Clients" FromRole="Clients" ToRole="Tickets" />
+          <Property Name="About" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="sysdiagrams">
           <Key>
@@ -140,6 +142,7 @@
           <EntitySetMapping Name="Clients">
             <EntityTypeMapping TypeName="OrganizationModel.Clients">
               <MappingFragment StoreEntitySet="Clients">
+                <ScalarProperty Name="About" ColumnName="About" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="FieldOfActivity" ColumnName="FieldOfActivity" />

@@ -26,6 +26,7 @@ namespace app4client3
         public string INN { get; set; }
         public Nullable<int> NumberOfTickets { get; set; }
         public System.DateTime DateLastTicket { get; set; }
+        public string About { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Tickets> Tickets { get; set; }

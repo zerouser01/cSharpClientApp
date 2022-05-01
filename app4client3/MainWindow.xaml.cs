@@ -66,7 +66,7 @@ namespace app4client3
             }
             return arr;
         }
-
+        
         private void btnTickets(object sender, RoutedEventArgs e)
         {
             /* Действие при нажатии на кнопку =>
@@ -187,6 +187,15 @@ namespace app4client3
             Tickets obj = (sender as Button).DataContext as Tickets;
             EditTicket window = new EditTicket(instance4newform, obj);
             window.Show();
+        }
+        
+
+        private void ClientsGrid_SelectedCellsChanged(object sender, SelectedCellsChangedEventArgs e)
+        {
+            Clients anewobj = (sender as DataGrid).CurrentCell.Item as Clients;
+            labelAbout.Content = anewobj.About;
+
+
         }
     }
 }
