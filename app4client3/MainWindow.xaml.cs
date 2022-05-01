@@ -28,7 +28,7 @@ namespace app4client3
         {
             InitializeComponent();
             ClientsGrid.ItemsSource = OrganizationEntities.GetContext().Clients.ToList();
-
+            //aga
         }
 
 
