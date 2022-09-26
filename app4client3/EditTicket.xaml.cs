@@ -12,7 +12,6 @@ namespace app4client3
         Clients cInstance;
         Tickets tInstance;
         
-        
         public EditTicket(Clients client, Tickets ticket)
         {
             InitializeComponent();
@@ -22,6 +21,7 @@ namespace app4client3
             comboStatus.ItemsSource = ApplicationContext.GetContext().Status.Select(c => c.CurrentStatus).ToArray();
             NaimenovanieTextBox.Text = tInstance.Naimenovanie;
             DeskriptTextBox.Text = tInstance.Deskription;
+            
         }
         private string[] GetStatus()
         {
@@ -51,7 +51,7 @@ namespace app4client3
             tInstance.Naimenovanie = NaimenovanieTextBox.Text;
             tInstance.Deskription = DeskriptTextBox.Text;
             tInstance.DateOfTickets = System.DateTime.Now;
-            ApplicationContext.GetContext().SaveChanges();
+            ApplicationContext.GetContext().SaveChangesAsync();
             MessageBox.Show(Constants.SUCCESS + selectedIndex);
             Close();
         }

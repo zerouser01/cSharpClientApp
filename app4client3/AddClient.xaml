@@ -36,7 +36,7 @@
         </Grid>
         
         <Grid Grid.Row="2" Grid.Column="1">
-            <TextBox x:Name="FieldofActivityTextBox" Width="auto" Height="20"></TextBox>
+            <ComboBox x:Name="comboField" Height="25" ></ComboBox>
         </Grid>
         <Grid Grid.Row="3" Grid.Column="1">
             <TextBox x:Name="InnTextBox" Width="auto" Height="20"></TextBox>
