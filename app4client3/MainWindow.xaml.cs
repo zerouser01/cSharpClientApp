@@ -153,6 +153,8 @@ namespace app4client3
 
         private void ClientsGrid_SelectedCellsChanged(object sender, SelectedCellsChangedEventArgs e)
         {
+            /* Событие для клика по строке в clientsGrid
+             */
             if ((sender as DataGrid)?.CurrentCell.Item is Clients clients) LabelAbout.Content = clients.About;
         }
     }

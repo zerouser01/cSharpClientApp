@@ -7,13 +7,12 @@ namespace app4client3
     /// <summary>
     /// Логика взаимодействия для AddClient.xaml
     /// </summary>
-    
-    
     public partial class AddClient
     {
         public AddClient()
         {
             InitializeComponent();
+            //comboField.ItemsSource = ApplicationContext.GetContext()
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -21,8 +20,8 @@ namespace app4client3
             var sb = new StringBuilder();
             if (string.IsNullOrEmpty(NameTextBox.Text))
                 sb.AppendLine(Constants.ENTER_CLIENT_NAME);
-            if (string.IsNullOrEmpty(FieldofActivityTextBox.Text))
-                sb.AppendLine(Constants.ENTER_FIELDOFACTIVITY);
+            //if (string.IsNullOrEmpty(FieldofActivityTextBox.Text))
+                //sb.AppendLine(Constants.ENTER_FIELDOFACTIVITY);
             if (string.IsNullOrEmpty(InnTextBox.Text))
                 sb.AppendLine(Constants.ENTER_INN);
 

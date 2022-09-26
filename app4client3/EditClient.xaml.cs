@@ -2,7 +2,6 @@
 using System.Text;
 using System.Windows;
 
-
 namespace app4client3
 {
     /// <summary>
